@@ -7,4 +7,6 @@ participant server
     activate server
     server-->>browser: Redirecting request
     deactivate server
+
+Note right of browser: The browser executes the callback function that renders the notes 
 ```
