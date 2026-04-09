@@ -33,23 +33,22 @@ const App = () => {
     console.log("value now", newValue)
     setBad(newValue)
   }
-
-
-  return (
-    <div>
-      <h1>give feedback</h1>
-      <Button onClick={() => { setToValueGood(good + 1); allValuesNow(all + 1); setAverageCount(averageCount + 1) }} text="good" />
-      <Button onClick={() => { setToValueNeutral(neutral + 1); allValuesNow(all + 1) }} text="neutral" />
-      <Button onClick={() => { setToValueBad(bad + 1); allValuesNow(all + 1); setAverageCount(averageCount - 1) }} text="bad" />
-      <h1>statistics</h1>
-      <Statistics value={good} name="good " />
-      <Statistics value={neutral} name="neutral " />
-      <Statistics value={bad} name="bad " />
-      <Statistics value={all} name="all " />
-      <Statistics value={averageCount / all} name="average " />
-      <Statistics value={(good / all) * 100} name="positive " mark=" %" />
-    </div>
-  )
+  if (total == 0) /*toisinp*/
+    return (
+      <div>
+        <h1>give feedback</h1>
+        <Button onClick={() => { setToValueGood(good + 1); allValuesNow(all + 1); setAverageCount(averageCount + 1) }} text="good" />
+        <Button onClick={() => { setToValueNeutral(neutral + 1); allValuesNow(all + 1) }} text="neutral" />
+        <Button onClick={() => { setToValueBad(bad + 1); allValuesNow(all + 1); setAverageCount(averageCount - 1) }} text="bad" />
+        <h1>statistics</h1>
+        <Statistics value={good} name="good " />
+        <Statistics value={neutral} name="neutral " />
+        <Statistics value={bad} name="bad " />
+        <Statistics value={all} name="all " />
+        <Statistics value={averageCount / all} name="average " />
+        <Statistics value={(good / all) * 100} name="positive " mark=" %" />
+      </div>
+    )
 }
 
 export default App
