@@ -33,7 +33,18 @@ const App = () => {
     console.log("value now", newValue)
     setBad(newValue)
   }
-  if (total == 0) /*toisinp*/
+  if (all == 0)
+    return (
+      <div>
+        <h1>give feedback</h1>
+        <Button onClick={() => { setToValueGood(good + 1); allValuesNow(all + 1); setAverageCount(averageCount + 1) }} text="good" />
+        <Button onClick={() => { setToValueNeutral(neutral + 1); allValuesNow(all + 1) }} text="neutral" />
+        <Button onClick={() => { setToValueBad(bad + 1); allValuesNow(all + 1); setAverageCount(averageCount - 1) }} text="bad" />
+        <h1>statistics</h1>
+        No feedback given
+      </div>
+    )
+  if (all > 0)
     return (
       <div>
         <h1>give feedback</h1>
