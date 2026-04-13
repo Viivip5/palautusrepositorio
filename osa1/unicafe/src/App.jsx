@@ -1,13 +1,27 @@
 import { useState } from 'react'
-/*9h*/
+/*10h*/
 const Button = (props) => (
   <button onClick={props.onClick}>
     {props.text}
   </button>
 )
-
-const Statistics = props => <div>{props.name}{props.value}{props.mark}</div>
-
+const StatisticLine = (props) => {
+  return (
+    <div>{props.text}{props.value}{props.mark}</div>
+  )
+}
+const Statistics = ({ good, neutral, bad, averageCount, all }) => {
+  return (
+    <div>
+      <StatisticLine text="good " value={good} />
+      <StatisticLine text="neutral " value={neutral} />
+      <StatisticLine text="bad " value={bad} />
+      <StatisticLine text="all " value={all} />
+      <StatisticLine text="average " value={averageCount / all} />
+      <StatisticLine text="positive " value={(good / all) * 100} mark=" %" />
+    </div>
+  )
+}
 
 const App = () => {
 
@@ -33,6 +47,8 @@ const App = () => {
     console.log("value now", newValue)
     setBad(newValue)
   }
+
+
   if (all == 0)
     return (
       <div>
@@ -52,12 +68,8 @@ const App = () => {
         <Button onClick={() => { setToValueNeutral(neutral + 1); allValuesNow(all + 1) }} text="neutral" />
         <Button onClick={() => { setToValueBad(bad + 1); allValuesNow(all + 1); setAverageCount(averageCount - 1) }} text="bad" />
         <h1>statistics</h1>
-        <Statistics value={good} name="good " />
-        <Statistics value={neutral} name="neutral " />
-        <Statistics value={bad} name="bad " />
-        <Statistics value={all} name="all " />
-        <Statistics value={averageCount / all} name="average " />
-        <Statistics value={(good / all) * 100} name="positive " mark=" %" />
+        <Statistics good={good} neutral={neutral} bad={bad} all={all} averageCount={averageCount} />
+
       </div>
     )
 }
