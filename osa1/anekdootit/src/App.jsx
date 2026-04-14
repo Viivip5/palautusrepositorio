@@ -29,20 +29,32 @@ const App = () => {
     copy[selected] += 1
     setVotes(copy)
 
+    let largest = copy[0];
+
+    copy.forEach(element => {
+      if (element > largest) {
+        largest = element;
+      }
+    });
     console.log(copy)
     console.log("bruh", copy[selected])
+    console.log("onko tää isoin", largest)
   }
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <br></br>
       <p>has {votes[selected]} votes</p>
       <br></br>
       <button onClick={setNewVote}>vote</button>
       <button onClick={() => setNewSelected(Math.floor(Math.random() * anecdotes.length))}>next anecdode</button>
+      <h1>Anecdote with most votes</h1>
+      <p>has {Math.max(...votes)} votes</p>
 
     </div >
   )
 }
 
 export default App
+/*+3.5h*/
