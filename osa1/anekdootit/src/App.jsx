@@ -13,13 +13,19 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
-  console.log(Math.floor(Math.random() * 10))
+
+  const setNewSelected = newSelected => {
+    console.log(newSelected)
+    setSelected(newSelected)
+  }
   return (
     <div>
       {anecdotes[selected]}
-      <button>next anecdode</button>
-    </div>
+      <br></br>
+      <button onClick={() => setNewSelected(Math.floor(Math.random() * anecdotes.length))}>next anecdode</button>
+    </div >
   )
 }
 
 export default App
+/*onClick={() => setNewSelected(selected + 1)}*/
