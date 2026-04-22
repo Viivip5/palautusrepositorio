@@ -36,12 +36,9 @@ const App = () => {
         largest = element;
       }
     });
-    console.log(copy)
-    console.log("bruh", copy[selected])
-    console.log("onko tää isoin", largest)
+  
   }
   const index = votes.reduce((iMax, x, i, votes) => x > votes[iMax] ? i : iMax, 0);
-  console.log("hehee", index)
   return (
     <div>
       <h1>Anecdote of the day</h1>
@@ -60,4 +57,3 @@ const App = () => {
 }
 
 export default App
-/*+4h*/
