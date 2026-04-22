@@ -40,6 +40,8 @@ const App = () => {
     console.log("bruh", copy[selected])
     console.log("onko tää isoin", largest)
   }
+  const index = votes.reduce((iMax, x, i, votes) => x > votes[iMax] ? i : iMax, 0);
+  console.log("hehee", index)
   return (
     <div>
       <h1>Anecdote of the day</h1>
@@ -50,6 +52,7 @@ const App = () => {
       <button onClick={setNewVote}>vote</button>
       <button onClick={() => setNewSelected(Math.floor(Math.random() * anecdotes.length))}>next anecdode</button>
       <h1>Anecdote with most votes</h1>
+      {anecdotes[index]}
       <p>has {Math.max(...votes)} votes</p>
 
     </div >
@@ -57,4 +60,4 @@ const App = () => {
 }
 
 export default App
-/*+3.5h*/
+/*+4h*/
