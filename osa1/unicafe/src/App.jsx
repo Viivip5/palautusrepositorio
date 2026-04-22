@@ -1,5 +1,5 @@
 import { useState } from 'react'
-/*10h*/
+
 const Button = (props) => (
   <button onClick={props.onClick}>
     {props.text}
