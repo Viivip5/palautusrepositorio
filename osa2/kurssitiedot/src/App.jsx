@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Courses } from './components/Courses'
+import Course from './components/Courses'
+
 
 const App = ({ Courses }) => {
   const title = 'Web development curriculum'
@@ -50,7 +51,7 @@ const App = ({ Courses }) => {
 
   return (
     <div>
-      <Courses courses={courses} />
+      <Course courses={courses} />
     </div>
   )
 }

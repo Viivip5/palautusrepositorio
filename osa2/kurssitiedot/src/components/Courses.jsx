@@ -1,11 +1,10 @@
 import { useState } from 'react'
 
-const Courses = (props) => {
+const Course = (props) => {
     return (
         <div>
             <Header text={props.title} />
             <Content courses={props.courses} />
-
         </div>
     )
 }
@@ -51,6 +50,4 @@ const Part = (props) => {
 }
 
 
-
-
-export default Courses
+export default Course
