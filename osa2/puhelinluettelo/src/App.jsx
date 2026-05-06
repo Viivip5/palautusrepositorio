@@ -12,13 +12,15 @@ const App = () => {
     {
       name: 'Arto Hellas',
       id: '1'
-    },
+    }
   ])
   const [newName, setNewName] = useState('')
+  const [nameList, setNameList] = useState(['Arto Hellas'])
   const [newPersons, setNewPersons] = useState('')
 
   const addPersons = (event) => {
     event.preventDefault()
+
     console.log('painoit nappia', event.target)
     console.log(String(persons.length + 1))
     const personsInformation = {
@@ -26,14 +28,22 @@ const App = () => {
       id: String(persons.length + 1)
     }
 
-    setPersons(persons.concat(personsInformation))
-    setNewPersons('')
+    if (nameList.includes(newPersons)) {
+      window.alert(newPersons + ' is already added to phonebook')
+    } else {
+      setPersons(persons.concat(personsInformation))
+      setNameList(nameList.concat(newPersons))
+      setNewPersons('')
+      console.log(nameList)
+      console.log(persons)
+    }
   }
 
   const handlePersonsChange = (event) => {
     console.log(event.target.value)
     setNewPersons(event.target.value)
   }
+
   return (
     <div>
       <h2>Phonebook</h2>
