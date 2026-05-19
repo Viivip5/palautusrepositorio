@@ -16,6 +16,7 @@ const App = () => {
 
   ])
   const [newName, setNewName] = useState('')
+  const [filteredPersons, setFilteredPersons] = useState([])
   const [nameList, setNameList] = useState(['Arto Hellas', 'Ada Lovelace', 'Dan Abramov', 'Mary Poppendieck'])
   const [newPersons, setNewPersons] = useState('')
   const [newNumber, setNewNumber] = useState('')
@@ -43,47 +44,54 @@ const App = () => {
       console.log(persons)
     }
   }
-
   function filterItems(arr, query) {
     return arr.filter((el) =>
       String(el).toLowerCase().includes(query.toLowerCase())
     );
   }
   const addFilter = (event) => {
-    event.preventDefault()
-    console.log("mui")
-    console.log('painoit nappia', event.target)
-    const list = filterItems(nameList, newFilter)
-    console.log("mui", list)
-    setIndexOfFilterName(list.map(list => nameList.indexOf(list)))
-    const filterResult = indexOfFilterName.map(index => persons[index])
-    console.log("oikea", filterResult)
-    console.log("numero", indexOfFilterName)
-    console.log("numero2", list.map(list => nameList.indexOf(list)))
-    const number = list.map(list => nameList.indexOf(list))
-    const result = number.map(number => persons[number])
+
   }
 
   const handlePersonsChange = (event) => {
-    console.log(event.target.value)
+    console.log("1", event.target.value)
     setNewPersons(event.target.value)
   }
   const handleNumberChange = (event) => {
-    console.log(event.target.value)
+    console.log("2", event.target.value)
     setNewNumber(event.target.value)
   }
   const handleFilterChange = (event) => {
-    console.log(event.target.value)
+    console.log("3", event.target.value)
     setNewFilter(event.target.value)
+    if (event.target === "") {
+    } else {
+      event.preventDefault()
+      console.log('painoit nappia', event.target)
+      const list = filterItems(nameList, newFilter)
+      setIndexOfFilterName(list.map(list => nameList.indexOf(list)))
+      const filterResult = indexOfFilterName.map(index => persons[index])
+      console.log("oikea", filterResult)
+      console.log("numero", indexOfFilterName)
+      const number = list.map(list => nameList.indexOf(list))
+      const result = number.map(number => persons[number])
+      filteredPersons.length = 0
+      console.log("onko tää tyhjä", filteredPersons)
+      setFilteredPersons(filteredPersons.concat(indexOfFilterName.map(index => persons[index])))
+      if (filteredPersons.length === 0) {
+        filteredPersons.length = 0
+        setFilteredPersons(persons)
+      }
+    }
   }
-  const personsToShow = showAll
-    ? persons
-    : filterItems(nameList, newFilter)
+  console.log(filterItems(nameList, newFilter))
+
 
   const handleSubmit = (e) => {
-    addFilter(e)
-    setShowAll(!showAll)
+    e.preventDefault()
   }
+  console.log("5", filteredPersons)
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -100,7 +108,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-        {personsToShow.map(person =>
+        {filteredPersons.map(person =>
           <Person person={person.name} number={person.number} key={person.id} />
         )}
       </ul>
