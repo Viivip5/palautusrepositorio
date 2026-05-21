@@ -5,7 +5,30 @@ const Person = (props) => {
     <li>{props.person} {props.number}</li>
   )
 }
-
+const Persons = (props) => {
+  return (
+    <ul>
+      {props.persons.filter((entry) => String(entry.name).toLowerCase().includes(props.newFilter.toLowerCase())).map(person =>
+        <Person person={person.name} number={person.number} key={person.id} />
+      )}
+    </ul>
+  )
+}
+const Filter = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div> filter shown with <input value={props.newFilter} onChange={props.handleFilterChange} /></div>
+    </form>)
+}
+const PersonForm = (props) => {
+  return (
+    <form onSubmit={props.addPersons}>
+      <div> name: <input value={props.newPersons} onChange={props.handlePersonsChange} /></div>
+      <div> number: <input value={props.newNumber} onChange={props.handleNumberChange} /></div>
+      <div> <button type="submit">add</button> </div>
+    </form>
+  )
+}
 const App = () => {
   const initialPersons = [
 
@@ -52,21 +75,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={handleSubmit}>
-        <div> filter shown with <input value={newFilter} onChange={handleFilterChange} /></div>
-      </form>
+      <Filter handleSubmit={handleSubmit} newFilter={newFilter} handleFilterChange={handleFilterChange} />
       <h2>add a new</h2>
-      <form onSubmit={addPersons}>
-        <div> name: <input value={newPersons} onChange={handlePersonsChange} /></div>
-        <div> number: <input value={newNumber} onChange={handleNumberChange} /></div>
-        <div> <button type="submit">add</button> </div>
-      </form>
+      <PersonForm addPersons={addPersons} newPersons={newPersons}
+        newNumber={newNumber} handlePersonsChange={handlePersonsChange}
+        handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <ul>
-        {persons.filter((entry) => String(entry.name).toLowerCase().includes(newFilter.toLowerCase())).map(person =>
-          <Person person={person.name} number={person.number} key={person.id} />
-        )}
-      </ul>
+      <Persons persons={persons} newFilter={newFilter} />
     </div>
   )
 
