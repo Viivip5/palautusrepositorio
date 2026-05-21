@@ -7,96 +7,51 @@ const Person = (props) => {
 }
 
 const App = () => {
-  const [persons, setPersons] = useState([
+  const initialPersons = [
 
     { name: 'Arto Hellas', id: 1, number: '040-123456' },
     { name: 'Ada Lovelace', id: 2, number: '39-44-5323523' },
     { name: 'Dan Abramov', id: 3, number: '12-43-234345' },
     { name: 'Mary Poppendieck', id: 4, number: '39-23-6423122' }
 
-  ])
+  ]
+  const [persons, setPersons] = useState(initialPersons)
   const [newName, setNewName] = useState('')
-  const [filteredPersons, setFilteredPersons] = useState([])
-  const [nameList, setNameList] = useState(['Arto Hellas', 'Ada Lovelace', 'Dan Abramov', 'Mary Poppendieck'])
   const [newPersons, setNewPersons] = useState('')
   const [newNumber, setNewNumber] = useState('')
-  const [showAll, setShowAll] = useState(true)
   const [newFilter, setNewFilter] = useState('')
-  const [indexOfFilterName, setIndexOfFilterName] = useState([])
 
   const addPersons = (event) => {
     event.preventDefault()
-    console.log('painoit nappia', event.target)
-    console.log(String(persons.length + 1))
     const personsInformation = {
       name: newPersons,
       id: String(persons.length + 1),
       number: newNumber
     }
-    if (nameList.includes(newPersons)) {
+    if (persons.map((entry) => entry.name).includes(newPersons)) {
       window.alert(newPersons + ' is already added to phonebook')
     } else {
       setPersons(persons.concat(personsInformation))
-      setNameList(nameList.concat(newPersons))
       setNewPersons('')
       setNewNumber('')
-      console.log(nameList)
-      console.log(persons)
     }
   }
-  function filterItems(arr, query) {
-    return arr.filter((el) =>
-      String(el).toLowerCase().includes(query.toLowerCase())
-    );
-  }
-  const addFilter = (event) => {
-
-  }
-
   const handlePersonsChange = (event) => {
-    console.log("1", event.target.value)
     setNewPersons(event.target.value)
   }
   const handleNumberChange = (event) => {
-    console.log("2", event.target.value)
     setNewNumber(event.target.value)
   }
   const handleFilterChange = (event) => {
-    console.log("3", event.target.value)
     setNewFilter(event.target.value)
-    if (event.target === "") {
-    } else {
-      event.preventDefault()
-      console.log('painoit nappia', event.target)
-      const list = filterItems(nameList, newFilter)
-      setIndexOfFilterName(list.map(list => nameList.indexOf(list)))
-      const filterResult = indexOfFilterName.map(index => persons[index])
-      console.log("oikea", filterResult)
-      console.log("numero", indexOfFilterName)
-      const number = list.map(list => nameList.indexOf(list))
-      const result = number.map(number => persons[number])
-      filteredPersons.length = 0
-      console.log("onko tää tyhjä", filteredPersons)
-      setFilteredPersons(filteredPersons.concat(indexOfFilterName.map(index => persons[index])))
-      if (filteredPersons.length === 0) {
-        filteredPersons.length = 0
-        setFilteredPersons(persons)
-      }
-    }
   }
-  console.log(filterItems(nameList, newFilter))
-
-
   const handleSubmit = (e) => {
     e.preventDefault()
   }
-  console.log("5", filteredPersons)
 
   return (
     <div>
       <h2>Phonebook</h2>
-
-
       <form onSubmit={handleSubmit}>
         <div> filter shown with <input value={newFilter} onChange={handleFilterChange} /></div>
       </form>
@@ -108,7 +63,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-        {filteredPersons.map(person =>
+        {persons.filter((entry) => String(entry.name).toLowerCase().includes(newFilter.toLowerCase())).map(person =>
           <Person person={person.name} number={person.number} key={person.id} />
         )}
       </ul>

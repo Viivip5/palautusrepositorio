@@ -25,7 +25,6 @@ const App = () => {
 
   const setNewVote = () => {
     const copy = [...votes]
-    console.log("voi nyyh", copy)
     copy[selected] += 1
     setVotes(copy)
 
@@ -36,9 +35,9 @@ const App = () => {
         largest = element;
       }
     });
-  
   }
   const index = votes.reduce((iMax, x, i, votes) => x > votes[iMax] ? i : iMax, 0);
+
   return (
     <div>
       <h1>Anecdote of the day</h1>
