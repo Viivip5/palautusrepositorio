@@ -59,7 +59,6 @@ const App = () => {
     if (personsData.map((entry) => entry.name).includes(newPersons)) {
       window.alert(newPersons + ' is already added to phonebook')
     } else {
-      setPersons(persons.concat(personsInformation))
       setNewPersons('')
       setNewNumber('')
     }
