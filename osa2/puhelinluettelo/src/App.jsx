@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Person = (props) => {
   return (
@@ -30,28 +31,32 @@ const PersonForm = (props) => {
   )
 }
 const App = () => {
-  const initialPersons = [
-
-    { name: 'Arto Hellas', id: 1, number: '040-123456' },
-    { name: 'Ada Lovelace', id: 2, number: '39-44-5323523' },
-    { name: 'Dan Abramov', id: 3, number: '12-43-234345' },
-    { name: 'Mary Poppendieck', id: 4, number: '39-23-6423122' }
-
-  ]
-  const [persons, setPersons] = useState(initialPersons)
+  const [personsData, setPersonsData] = useState([])
   const [newName, setNewName] = useState('')
   const [newPersons, setNewPersons] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
 
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        setPersonsData(response.data)
+      })
+  }, [])
+  console.log('render notes')
+
+
   const addPersons = (event) => {
     event.preventDefault()
     const personsInformation = {
       name: newPersons,
-      id: String(persons.length + 1),
+      id: String(personsData.length + 1),
       number: newNumber
     }
-    if (persons.map((entry) => entry.name).includes(newPersons)) {
+    if (personsData.map((entry) => entry.name).includes(newPersons)) {
       window.alert(newPersons + ' is already added to phonebook')
     } else {
       setPersons(persons.concat(personsInformation))
@@ -81,7 +86,7 @@ const App = () => {
         newNumber={newNumber} handlePersonsChange={handlePersonsChange}
         handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <Persons persons={persons} newFilter={newFilter} />
+      <Persons persons={personsData} newFilter={newFilter} />
     </div>
   )
 
